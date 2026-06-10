@@ -1,4 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
+    <entity name="Cliente" representedClassName="Cliente" syncable="YES" codeGenerationType="class">
+        <attribute name="apellidos" optional="YES" attributeType="String"/>
+        <attribute name="correo" optional="YES" attributeType="String"/>
+        <attribute name="direccion" optional="YES" attributeType="String"/>
+        <attribute name="dni" optional="YES" attributeType="String"/>
+        <attribute name="estado" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="idCliente" optional="YES" attributeType="String"/>
+        <attribute name="nombres" optional="YES" attributeType="String"/>
+        <attribute name="telefono" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Producto" representedClassName="Producto" syncable="YES" codeGenerationType="class">
+        <attribute name="categoria" optional="YES" attributeType="String"/>
+        <attribute name="codigo" optional="YES" attributeType="String"/>
+        <attribute name="estado" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="fechaRegistro" optional="YES" attributeType="Date"/>
+        <attribute name="idProducto" optional="YES" attributeType="String"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="precio" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="stock" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Ubicacion" representedClassName="Ubicacion" syncable="YES" codeGenerationType="class">
+        <attribute name="direccionReferencia" optional="YES" attributeType="String"/>
+        <attribute name="fechaRegistro" optional="YES" attributeType="Date"/>
+        <attribute name="idUbicacion" optional="YES" attributeType="String"/>
+        <attribute name="latitud" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="longitud" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Usuario" representedClassName="Usuario" syncable="YES" codeGenerationType="class">
+        <attribute name="estado" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="idUsuario" optional="YES" attributeType="String"/>
+        <attribute name="nombreCompleto" optional="YES" attributeType="String"/>
+        <attribute name="nombreUsuario" optional="YES" attributeType="String"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Venta" representedClassName="Venta" syncable="YES" codeGenerationType="class">
+        <attribute name="cantidad" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="fechaVenta" optional="YES" attributeType="Date"/>
+        <attribute name="idVenta" optional="YES" attributeType="String"/>
+        <attribute name="igv" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="precio" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="subtotal" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="total" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+    </entity>
     <elements/>
 </model>
