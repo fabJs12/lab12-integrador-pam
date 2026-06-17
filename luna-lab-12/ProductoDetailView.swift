@@ -1,20 +1,11 @@
-//
-//  ProductoDetailView.swift
-//  luna-lab-12
-//
-//  Created by Antigravity on 9/06/26.
-//
-
 import SwiftUI
 import CoreData
 
 struct ProductoDetailView: View {
     @ObservedObject var producto: Producto
-    
-    // Control de presentación del formulario de edición
+
     @State private var mostrarEdicion: Bool = false
-    
-    // Formateador de fecha
+
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -22,11 +13,11 @@ struct ProductoDetailView: View {
         formatter.locale = Locale(identifier: "es_PE")
         return formatter
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Cabecera del Producto
+
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text(producto.categoria ?? "Sin Categoría")
@@ -34,10 +25,9 @@ struct ProductoDetailView: View {
                             .fontWeight(.semibold)
                             .textCase(.uppercase)
                             .foregroundColor(.secondary)
-                        
+
                         Spacer()
-                        
-                        // Badge de Estado Activo/Inactivo
+
                         Text(producto.estado ? "Activo" : "Inactivo")
                             .font(.caption)
                             .fontWeight(.bold)
@@ -47,11 +37,11 @@ struct ProductoDetailView: View {
                             .foregroundColor(producto.estado ? .green : .gray)
                             .clipShape(Capsule())
                     }
-                    
+
                     Text(producto.nombre ?? "Producto sin Nombre")
                         .font(.title)
                         .fontWeight(.bold)
-                    
+
                     Text("Código: \(producto.codigo ?? "N/A")")
                         .font(.headline)
                         .foregroundColor(.blue)
@@ -59,8 +49,7 @@ struct ProductoDetailView: View {
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(12)
-                
-                // Detalles Financieros e Inventario
+
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
                         Label("Precio Unitario", systemImage: "tag.fill")
@@ -71,9 +60,9 @@ struct ProductoDetailView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
                     }
-                    
+
                     Divider()
-                    
+
                     HStack {
                         Label("Stock Disponible", systemImage: "shippingbox.fill")
                             .font(.headline)
@@ -83,7 +72,7 @@ struct ProductoDetailView: View {
                             .fontWeight(.bold)
                             .foregroundColor(producto.stock < 5 ? .red : .primary)
                     }
-                    
+
                     if producto.stock < 5 {
                         HStack {
                             Image(systemName: "exclamationmark.triangle.fill")
@@ -98,14 +87,13 @@ struct ProductoDetailView: View {
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(12)
-                
-                // Metadatos
+
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Fecha de Registro")
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
-                    
+
                     if let fecha = producto.fechaRegistro {
                         Text(dateFormatter.string(from: fecha))
                             .font(.body)
@@ -118,7 +106,7 @@ struct ProductoDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(12)
-                
+
                 Spacer()
             }
             .padding()
@@ -141,7 +129,6 @@ struct ProductoDetailView: View {
     }
 }
 
-// Un preview robusto que simula el modelo en memoria
 struct ProductoDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
@@ -153,7 +140,7 @@ struct ProductoDetailView_Previews: PreviewProvider {
         model.stock = 4
         model.fechaRegistro = Date()
         model.estado = true
-        
+
         return NavigationStack {
             ProductoDetailView(producto: model)
         }

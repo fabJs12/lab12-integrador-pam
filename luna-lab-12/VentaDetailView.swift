@@ -1,17 +1,9 @@
-//
-//  VentaDetailView.swift
-//  luna-lab-12
-//
-//  Created by Antigravity on 9/06/26.
-//
-
 import SwiftUI
 import CoreData
 
 struct VentaDetailView: View {
     let venta: Venta
-    
-    // Formateador de fecha
+
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -19,21 +11,21 @@ struct VentaDetailView: View {
         formatter.locale = Locale(identifier: "es_PE")
         return formatter
     }
-    
+
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                // Cabecera de Boleta / Recibo
+
                 VStack(spacing: 12) {
                     Image(systemName: "doc.plaintext.fill")
                         .font(.system(size: 60))
                         .foregroundColor(.blue)
                         .padding(.top, 10)
-                    
+
                     Text("Comprobante de Pago")
                         .font(.title2)
                         .fontWeight(.bold)
-                    
+
                     Text("BOLETA ELECTRÓNICA")
                         .font(.caption)
                         .fontWeight(.semibold)
@@ -43,30 +35,28 @@ struct VentaDetailView: View {
                         .foregroundColor(.blue)
                         .cornerRadius(6)
                 }
-                
-                // Información de Transacción
+
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Detalles de la Transacción")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    
+
                     Divider()
-                    
+
                     FilaInfo(label: "ID de Venta", value: venta.idVenta ?? "N/A")
                     FilaInfo(label: "Fecha y Hora", value: venta.fechaVenta != nil ? dateFormatter.string(from: venta.fechaVenta!) : "N/A")
                 }
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(12)
-                
-                // Desglose de Productos
+
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Detalle de Conceptos")
                         .font(.headline)
                         .foregroundColor(.primary)
-                    
+
                     Divider()
-                    
+
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Producto Transaccionado")
@@ -76,7 +66,7 @@ struct VentaDetailView: View {
                                 .foregroundColor(.secondary)
                         }
                         Spacer()
-                        
+
                         Text(String(format: "S/. %.2f", Double(venta.cantidad) * venta.precio))
                             .fontWeight(.bold)
                     }
@@ -84,14 +74,13 @@ struct VentaDetailView: View {
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(12)
-                
-                // Bloques Matemáticos de Cobro
+
                 VStack(spacing: 12) {
                     FilaMonto(label: "Subtotal", value: venta.subtotal)
                     FilaMonto(label: "IGV (18%)", value: venta.igv)
-                    
+
                     Divider()
-                    
+
                     HStack {
                         Text("TOTAL FINAL")
                             .font(.headline)
@@ -106,7 +95,7 @@ struct VentaDetailView: View {
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(12)
-                
+
                 Spacer()
             }
             .padding()
@@ -116,11 +105,10 @@ struct VentaDetailView: View {
     }
 }
 
-// Subcomponente fila informativa general
 struct FilaInfo: View {
     let label: String
     let value: String
-    
+
     var body: some View {
         HStack {
             Text(label)
@@ -136,11 +124,10 @@ struct FilaInfo: View {
     }
 }
 
-// Subcomponente fila montos financieros
 struct FilaMonto: View {
     let label: String
     let value: Double
-    
+
     var body: some View {
         HStack {
             Text(label)
@@ -154,7 +141,6 @@ struct FilaMonto: View {
     }
 }
 
-// Preview
 struct VentaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
@@ -166,7 +152,7 @@ struct VentaDetailView_Previews: PreviewProvider {
         model.subtotal = 255.00
         model.igv = 45.90
         model.total = 300.90
-        
+
         return NavigationStack {
             VentaDetailView(venta: model)
         }

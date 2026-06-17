@@ -1,29 +1,21 @@
-//
-//  MainMenuView.swift
-//  luna-lab-12
-//
-//  Created by Antigravity on 9/06/26.
-//
-
 import SwiftUI
 import CoreData
 
 struct MainMenuView: View {
-    // Preparado para recibir el managedObjectContext de Core Data
+
     @Environment(\.managedObjectContext) private var viewContext
-    
-    // Callback para que el ViewController maneje el cierre de sesión (desacoplamiento limpio)
+
     var onLogout: (() -> Void)?
-    
+
     var body: some View {
         NavigationStack {
             List {
-                // Sección de Módulos de Gestión
+
                 Section(header: Text("Módulos de Gestión")
                             .font(.subheadline)
                             .fontWeight(.bold)
                             .foregroundColor(.gray)) {
-                    
+
                     NavigationLink(destination: ProductoListView()) {
                         Label {
                             Text("Productos")
@@ -34,7 +26,7 @@ struct MainMenuView: View {
                                 .foregroundStyle(.blue)
                         }
                     }
-                    
+
                     NavigationLink(destination: ClienteListView()) {
                         Label {
                             Text("Clientes")
@@ -46,13 +38,12 @@ struct MainMenuView: View {
                         }
                     }
                 }
-                
-                // Sección de Operaciones y Reportes
+
                 Section(header: Text("Operaciones e Informes")
                             .font(.subheadline)
                             .fontWeight(.bold)
                             .foregroundColor(.gray)) {
-                    
+
                     NavigationLink(destination: VentaListView()) {
                         Label {
                             Text("Registro de Ventas")
@@ -63,7 +54,7 @@ struct MainMenuView: View {
                                 .foregroundStyle(.green)
                         }
                     }
-                    
+
                     NavigationLink(destination: UbicacionMapView()) {
                         Label {
                             Text("Ubicación y Mapa")
@@ -74,7 +65,7 @@ struct MainMenuView: View {
                                 .foregroundStyle(.orange)
                         }
                     }
-                    
+
                     NavigationLink(destination: ReportesView()) {
                         Label {
                             Text("Reportes")
@@ -85,7 +76,7 @@ struct MainMenuView: View {
                                 .foregroundStyle(.purple)
                         }
                     }
-                    
+
                     NavigationLink(destination: BusquedaAvanzadaView()) {
                         Label {
                             Text("Búsqueda Avanzada")
@@ -97,13 +88,12 @@ struct MainMenuView: View {
                         }
                     }
                 }
-                
-                // Sección de Configuración
+
                 Section(header: Text("Ajustes")
                             .font(.subheadline)
                             .fontWeight(.bold)
                             .foregroundColor(.gray)) {
-                    
+
                     NavigationLink(destination: ConfiguracionView()) {
                         Label {
                             Text("Configuración y Acerca de")
@@ -115,8 +105,7 @@ struct MainMenuView: View {
                         }
                     }
                 }
-                
-                // Sección de Sesión
+
                 Section {
                     Button(action: {
                         print("Logout")

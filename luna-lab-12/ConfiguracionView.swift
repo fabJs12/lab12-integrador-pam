@@ -1,28 +1,21 @@
-//
-//  ConfiguracionView.swift
-//  luna-lab-12
-//
-//  Created by Antigravity on 9/06/26.
-//
-
 import SwiftUI
 
 struct ConfiguracionView: View {
-    // Estados de configuración reactivos
+
     @State private var notificacionesActivas: Bool = true
     @State private var modoOffline: Bool = false
     @State private var idiomaSeleccionado: String = "Español"
-    
+
     let idiomas = ["Español", "Inglés"]
-    
+
     var body: some View {
         Form {
-            // Sección 1: Configuración de la Aplicación
+
             Section(header: Text("Configuración de la Aplicación")
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)) {
-                
+
                 Toggle(isOn: $notificacionesActivas) {
                     Label {
                         Text("Notificaciones Push")
@@ -32,7 +25,7 @@ struct ConfiguracionView: View {
                     }
                 }
                 .tint(.blue)
-                
+
                 Toggle(isOn: $modoOffline) {
                     Label {
                         Text("Modo Desconectado (Offline)")
@@ -42,7 +35,7 @@ struct ConfiguracionView: View {
                     }
                 }
                 .tint(.blue)
-                
+
                 Picker(selection: $idiomaSeleccionado, label:
                         Label {
                             Text("Idioma de la aplicación")
@@ -57,13 +50,12 @@ struct ConfiguracionView: View {
                 }
                 .pickerStyle(.menu)
             }
-            
-            // Sección 2: Acerca de (Información del Proyecto)
+
             Section(header: Text("Acerca de (Créditos)")
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)) {
-                
+
                 HStack {
                     Label {
                         Text("Nombre de la App")
@@ -77,7 +69,7 @@ struct ConfiguracionView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
-                
+
                 HStack {
                     Label {
                         Text("Versión")
@@ -91,7 +83,7 @@ struct ConfiguracionView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
-                
+
                 HStack {
                     Label {
                         Text("Institución")
@@ -105,7 +97,7 @@ struct ConfiguracionView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
-                
+
                 HStack {
                     Label {
                         Text("Curso")
@@ -119,7 +111,7 @@ struct ConfiguracionView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
-                
+
                 HStack {
                     Label {
                         Text("Desarrollador")
@@ -134,7 +126,7 @@ struct ConfiguracionView: View {
                         .foregroundColor(.secondary)
                         .fontWeight(.semibold)
                 }
-                
+
                 HStack {
                     Label {
                         Text("Docente")

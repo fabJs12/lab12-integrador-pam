@@ -1,34 +1,25 @@
-//
-//  ClienteDetailView.swift
-//  luna-lab-12
-//
-//  Created by Antigravity on 9/06/26.
-//
-
 import SwiftUI
 import CoreData
 
 struct ClienteDetailView: View {
     @ObservedObject var cliente: Cliente
-    
-    // Control de presentación del formulario de edición
+
     @State private var mostrarEdicion: Bool = false
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Perfil Cabecera
+
                 HStack(spacing: 16) {
                     Image(systemName: "person.crop.circle.fill")
                         .font(.system(size: 72))
                         .foregroundColor(.blue)
-                    
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("\(cliente.nombres ?? "") \(cliente.apellidos ?? "")")
                             .font(.title2)
                             .fontWeight(.bold)
-                        
-                        // Badge de Estado
+
                         Text(cliente.estado ? "Activo" : "Inactivo")
                             .font(.caption)
                             .fontWeight(.bold)
@@ -43,8 +34,7 @@ struct ClienteDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(16)
-                
-                // Detalles de Identificación y Contacto
+
                 VStack(alignment: .leading, spacing: 16) {
                     DetalleFila(icon: "doc.text.fill", title: "DNI", value: cliente.dni ?? "N/A")
                     Divider()
@@ -57,7 +47,7 @@ struct ClienteDetailView: View {
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(16)
-                
+
                 Spacer()
             }
             .padding()
@@ -78,26 +68,25 @@ struct ClienteDetailView: View {
     }
 }
 
-// Fila reutilizable para visualización de detalles
 struct DetalleFila: View {
     let icon: String
     let title: String
     let value: String
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
                 .font(.headline)
                 .foregroundColor(.blue)
                 .frame(width: 24, height: 24)
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
                     .textCase(.uppercase)
-                
+
                 Text(value)
                     .font(.body)
                     .foregroundColor(.primary)
@@ -107,7 +96,6 @@ struct DetalleFila: View {
     }
 }
 
-// Preview
 struct ClienteDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
@@ -119,7 +107,7 @@ struct ClienteDetailView_Previews: PreviewProvider {
         model.correo = "fabrizio.luna@tecsup.edu.pe"
         model.direccion = "Av. El Sol 345, Lima"
         model.estado = true
-        
+
         return NavigationStack {
             ClienteDetailView(cliente: model)
         }
