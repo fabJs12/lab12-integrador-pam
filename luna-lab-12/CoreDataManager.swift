@@ -347,4 +347,143 @@ class CoreDataManager {
         context.delete(ubicacion)
         try saveContext()
     }
+
+    func seedDatabaseIfNeeded() {
+        do {
+            let usuarios = try fetchUsuarios()
+            if !usuarios.isEmpty {
+                return
+            }
+            
+            print("Sembrando base de datos por primera vez...")
+            
+            // 1. Sembrar Usuarios
+            let _ = try registrarUsuario(nombreUsuario: "luna", contrasena: "luna123", nombreCompleto: "Luna Administrador")
+            let _ = try registrarUsuario(nombreUsuario: "piero", contrasena: "piero123", nombreCompleto: "Piero Desarrollador")
+            
+            // 2. Sembrar Clientes
+            let c1 = try createCliente(
+                idCliente: UUID().uuidString,
+                dni: "71234567",
+                nombres: "Juan Carlos",
+                apellidos: "Pérez Ramos",
+                telefono: "987654321",
+                correo: "juan.perez@gmail.com",
+                direccion: "Av. Larco 123, Miraflores, Lima",
+                estado: true
+            )
+            let c2 = try createCliente(
+                idCliente: UUID().uuidString,
+                dni: "60123456",
+                nombres: "María Elena",
+                apellidos: "Gómez Ruiz",
+                telefono: "912345678",
+                correo: "maria.gomez@outlook.com",
+                direccion: "Calle Las Flores 456, San Isidro, Lima",
+                estado: true
+            )
+            let c3 = try createCliente(
+                idCliente: UUID().uuidString,
+                dni: "45678901",
+                nombres: "Roberto",
+                apellidos: "Castro Diaz",
+                telefono: "998877665",
+                correo: "rcastro@yahoo.com",
+                direccion: "Jr. Ayacucho 789, Santiago de Surco, Lima",
+                estado: false
+            )
+            
+            // 3. Sembrar Productos
+            let p1 = try createProducto(
+                idProducto: "PROD-001",
+                codigo: "P001",
+                nombre: "Laptop Ryzen 7 Pro",
+                categoria: "Electrónicos",
+                precio: 3499.90,
+                stock: 12,
+                estado: true
+            )
+            let p2 = try createProducto(
+                idProducto: "PROD-002",
+                codigo: "P002",
+                nombre: "Smartphone AMOLED 5G",
+                categoria: "Electrónicos",
+                precio: 1899.00,
+                stock: 25,
+                estado: true
+            )
+            let p3 = try createProducto(
+                idProducto: "PROD-003",
+                codigo: "P003",
+                nombre: "Polo Slim Fit Algodón",
+                categoria: "Ropa",
+                precio: 59.90,
+                stock: 4,
+                estado: true
+            )
+            let p4 = try createProducto(
+                idProducto: "PROD-004",
+                codigo: "P004",
+                nombre: "Cafetera Expreso Pro",
+                categoria: "Hogar",
+                precio: 450.00,
+                stock: 8,
+                estado: true
+            )
+            let p5 = try createProducto(
+                idProducto: "PROD-005",
+                codigo: "P005",
+                nombre: "Chocolate Belga 80%",
+                categoria: "Alimentos",
+                precio: 15.50,
+                stock: 0,
+                estado: true
+            )
+            
+            // 4. Sembrar Ubicaciones (Lima, Perú para el mapa)
+            _ = try createUbicacion(
+                idUbicacion: UUID().uuidString,
+                latitud: -12.1225,
+                longitud: -77.0298,
+                direccionReferencia: "Oficina Principal Miraflores"
+            )
+            _ = try createUbicacion(
+                idUbicacion: UUID().uuidString,
+                latitud: -12.0945,
+                longitud: -77.0321,
+                direccionReferencia: "Almacén Central San Isidro"
+            )
+            _ = try createUbicacion(
+                idUbicacion: UUID().uuidString,
+                latitud: -12.1423,
+                longitud: -77.0215,
+                direccionReferencia: "Tienda Barranco Express"
+            )
+            
+            // 5. Sembrar Ventas Iniciales de prueba
+            _ = try createVenta(
+                idVenta: UUID().uuidString,
+                fechaVenta: Date().addingTimeInterval(-86400 * 2),
+                clienteId: c1.idCliente ?? "",
+                productosSeleccionados: [
+                    (productoId: p1.idProducto ?? "", cantidad: 1),
+                    (productoId: p3.idProducto ?? "", cantidad: 2)
+                ]
+            )
+            
+            _ = try createVenta(
+                idVenta: UUID().uuidString,
+                fechaVenta: Date().addingTimeInterval(-3600 * 3),
+                clienteId: c2.idCliente ?? "",
+                productosSeleccionados: [
+                    (productoId: p4.idProducto ?? "", cantidad: 1)
+                ]
+            )
+            
+            print("Base de datos sembrada con éxito.")
+        } catch {
+            print("Error al sembrar base de datos: \(error.localizedDescription)")
+        }
+    }
 }
+
