@@ -40,6 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Evitar conflictos con esquemas de base de datos antiguos obsoletos
         let storeURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("luna_lab_12.sqlite")
+        
+        #if targetEnvironment(simulator)
+        // En el simulador, eliminamos incondicionalmente la base de datos sqlite en cada inicio para desarrollo limpio de esquemas
+        print("Simulador detectado. Eliminando base de datos de prueba para recrear el esquema de Core Data desde cero...")
+        let fileManager = FileManager.default
+        try? fileManager.removeItem(at: storeURL)
+        try? fileManager.removeItem(at: storeURL.deletingPathExtension().appendingPathExtension("sqlite-shm"))
+        try? fileManager.removeItem(at: storeURL.deletingPathExtension().appendingPathExtension("sqlite-wal"))
+        #else
+        // En dispositivo físico, eliminamos únicamente si el esquema es incompatible para preservar la persistencia del usuario
         if let metadata = try? NSPersistentStoreCoordinator.metadataForPersistentStore(ofType: NSSQLiteStoreType, at: storeURL) {
             let isCompatible = container.managedObjectModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata)
             if !isCompatible {
@@ -50,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 try? fileManager.removeItem(at: storeURL.deletingPathExtension().appendingPathExtension("sqlite-wal"))
             }
         }
+        #endif
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
