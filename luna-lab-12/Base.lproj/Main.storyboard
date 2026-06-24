@@ -200,10 +200,233 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <navigationItem key="navigationItem" title="Menú Principal" id="menuTitle"/>
+                    <connections>
+                        <segue destination="ProductoListVC" kind="show" identifier="segueMenuToProductos" id="segMenuProd"/>
+                        <segue destination="ClienteListVC" kind="show" identifier="segueMenuToClientes" id="segMenuClie"/>
+                        <segue destination="VentaListVC" kind="show" identifier="segueMenuToVentas" id="segMenuVent"/>
+                        <segue destination="UbicacionMapVC" kind="show" identifier="segueMenuToMapa" id="segMenuMap"/>
+                        <segue destination="ReportesVC" kind="show" identifier="segueMenuToReportes" id="segMenuRep"/>
+                        <segue destination="ConfiguracionVC" kind="show" identifier="segueMenuToConfiguracion" id="segMenuConf"/>
+                        <segue destination="BusquedaAvanzadaVC" kind="show" identifier="segueMenuToBusqueda" id="segMenuBusq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="menuPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1700" y="100"/>
+        </scene>
+        <!-- Producto List View Controller -->
+        <scene sceneID="prodListScene">
+            <objects>
+                <viewController storyboardIdentifier="ProductoListVC" id="ProductoListVC" customClass="ProductoListViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="prodListView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Productos" id="prodListTitle"/>
+                    <connections>
+                        <segue destination="ProductoDetailVC" kind="show" identifier="segueProductoToDetail" id="segProdDetail"/>
+                        <segue destination="ProductoFormVC" kind="show" identifier="segueProductoToForm" id="segProdForm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="prodListPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="-300"/>
+        </scene>
+        <!-- Cliente List View Controller -->
+        <scene sceneID="clieListScene">
+            <objects>
+                <viewController storyboardIdentifier="ClienteListVC" id="ClienteListVC" customClass="ClienteListViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="clieListView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Clientes" id="clieListTitle"/>
+                    <connections>
+                        <segue destination="ClienteDetailVC" kind="show" identifier="segueClienteToDetail" id="segClieDetail"/>
+                        <segue destination="ClienteFormVC" kind="show" identifier="segueClienteToForm" id="segClieForm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="clieListPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="400"/>
+        </scene>
+        <!-- Producto Detail View Controller -->
+        <scene sceneID="prodDetScene">
+            <objects>
+                <viewController storyboardIdentifier="ProductoDetailVC" id="ProductoDetailVC" customClass="ProductoDetailViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="prodDetView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detalle de Producto" id="prodDetTitle"/>
+                    <connections>
+                        <segue destination="ProductoFormVC" kind="show" identifier="segueDetailToProductoForm" id="segDetProdForm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="prodDetPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="-1000"/>
+        </scene>
+        <!-- Cliente Detail View Controller -->
+        <scene sceneID="clieDetScene">
+            <objects>
+                <viewController storyboardIdentifier="ClienteDetailVC" id="ClienteDetailVC" customClass="ClienteDetailViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="clieDetView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detalle de Cliente" id="clieDetTitle"/>
+                    <connections>
+                        <segue destination="ClienteFormVC" kind="show" identifier="segueDetailToClienteForm" id="segDetClieForm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="clieDetPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="1800"/>
+        </scene>
+        <!-- Producto Form View Controller -->
+        <scene sceneID="prodFormScene2">
+            <objects>
+                <viewController storyboardIdentifier="ProductoFormVC" id="ProductoFormVC" customClass="ProductoFormViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="prodFormView2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Formulario de Producto" id="prodFormTitle2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="prodFormPlacer2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1700" y="-1000"/>
+        </scene>
+        <!-- Cliente Form View Controller -->
+        <scene sceneID="clieFormScene2">
+            <objects>
+                <viewController storyboardIdentifier="ClienteFormVC" id="ClienteFormVC" customClass="ClienteFormViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="clieFormView2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Formulario de Cliente" id="clieFormTitle2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="clieFormPlacer2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1700" y="1800"/>
+        </scene>
+        <!-- Venta List View Controller -->
+        <scene sceneID="ventListScene">
+            <objects>
+                <viewController storyboardIdentifier="VentaListVC" id="VentaListVC" customClass="VentaListViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ventListView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Ventas" id="ventListTitle"/>
+                    <connections>
+                        <segue destination="VentaFormVC" kind="show" identifier="segueListToNuevaVenta" id="segListNewV"/>
+                        <segue destination="VentaDetailVC" kind="show" identifier="segueListToDetalleVenta" id="segListDetV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ventListPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="-300"/>
+        </scene>
+        <!-- Venta Form View Controller -->
+        <scene sceneID="ventFormScene">
+            <objects>
+                <viewController storyboardIdentifier="VentaFormVC" id="VentaFormVC" customClass="VentaFormViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ventFormView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Nueva Venta" id="ventFormTitle"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ventFormPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4100" y="-600"/>
+        </scene>
+        <!-- Venta Detail View Controller -->
+        <scene sceneID="ventDetailScene">
+            <objects>
+                <viewController storyboardIdentifier="VentaDetailVC" id="VentaDetailVC" customClass="VentaDetailViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ventDetailView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Comprobante" id="ventDetailTitle"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ventDetailPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4100" y="0.0"/>
+        </scene>
+        <!-- Ubicacion Map View Controller -->
+        <scene sceneID="mapScene">
+            <objects>
+                <viewController storyboardIdentifier="UbicacionMapVC" id="UbicacionMapVC" customClass="UbicacionMapViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mapView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Mapa" id="mapTitle"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mapPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="400"/>
+        </scene>
+        <!-- Reportes View Controller -->
+        <scene sceneID="repScene">
+            <objects>
+                <viewController storyboardIdentifier="ReportesVC" id="ReportesVC" customClass="ReportesViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="repView2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reportes" id="repTitle2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="repPlacer2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="1100"/>
+        </scene>
+        <!-- Documentacion View Controller -->
+        <!-- Configuracion View Controller -->
+        <scene sceneID="confScene">
+            <objects>
+                <viewController storyboardIdentifier="ConfiguracionVC" id="ConfiguracionVC" customClass="ConfiguracionViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="confView2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Configuración" id="confTitle2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="confPlacer2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2500" y="1100"/>
+        </scene>
+        <!-- Busqueda Avanzada View Controller -->
+        <scene sceneID="busqScene">
+            <objects>
+                <viewController storyboardIdentifier="BusquedaAvanzadaVC" id="BusquedaAvanzadaVC" customClass="BusquedaAvanzadaViewController" customModule="luna_lab_12" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="busqView">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Búsqueda Avanzada" id="busqTitle"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="busqPlacer" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="1800"/>
         </scene>
     </scenes>
     <resources>

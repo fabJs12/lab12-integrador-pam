@@ -9,6 +9,7 @@
         <attribute name="idCliente" optional="YES" attributeType="String"/>
         <attribute name="nombres" optional="YES" attributeType="String"/>
         <attribute name="telefono" optional="YES" attributeType="String"/>
+        <relationship name="ventas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Venta" inverseName="cliente" inverseEntity="Venta"/>
     </entity>
     <entity name="Producto" representedClassName="Producto" syncable="YES" codeGenerationType="class">
         <attribute name="categoria" optional="YES" attributeType="String"/>
@@ -19,6 +20,7 @@
         <attribute name="nombre" optional="YES" attributeType="String"/>
         <attribute name="precio" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="stock" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <relationship name="detalles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DetalleVenta" inverseName="producto" inverseEntity="DetalleVenta"/>
     </entity>
     <entity name="Ubicacion" representedClassName="Ubicacion" syncable="YES" codeGenerationType="class">
         <attribute name="direccionReferencia" optional="YES" attributeType="String"/>
@@ -42,6 +44,15 @@
         <attribute name="precio" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="subtotal" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
         <attribute name="total" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <relationship name="cliente" optional="YES" toMany="NO" deletionRule="Nullify" destinationEntity="Cliente" inverseName="ventas" inverseEntity="Cliente"/>
+        <relationship name="detalles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DetalleVenta" inverseName="venta" inverseEntity="DetalleVenta"/>
+    </entity>
+    <entity name="DetalleVenta" representedClassName="DetalleVenta" syncable="YES" codeGenerationType="class">
+        <attribute name="cantidad" optional="YES" attributeType="Integer 64" usesScalarValueType="YES"/>
+        <attribute name="idDetalle" optional="YES" attributeType="String"/>
+        <attribute name="precioUnitario" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <relationship name="producto" optional="YES" toMany="NO" deletionRule="Nullify" destinationEntity="Producto" inverseName="detalles" inverseEntity="Producto"/>
+        <relationship name="venta" optional="YES" toMany="NO" deletionRule="Nullify" destinationEntity="Venta" inverseName="detalles" inverseEntity="Venta"/>
     </entity>
     <elements/>
 </model>

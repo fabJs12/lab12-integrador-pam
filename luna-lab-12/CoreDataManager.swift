@@ -10,6 +10,7 @@ enum ValidationError: Error, LocalizedError {
     case invalidDNI
     case invalidEmail
     case productNotFound
+    case customerNotFound
 
     var errorDescription: String? {
         switch self {
@@ -29,6 +30,8 @@ enum ValidationError: Error, LocalizedError {
             return "El correo electrónico debe tener un formato válido (contener '@' y '.')."
         case .productNotFound:
             return "Producto no encontrado en el sistema."
+        case .customerNotFound:
+            return "Cliente no encontrado en el sistema."
         }
     }
 }
@@ -228,32 +231,60 @@ class CoreDataManager {
         try saveContext()
     }
 
-    func createVenta(idVenta: String, fechaVenta: Date = Date(), cantidad: Int64, precio: Double, subtotal: Double, igv: Double, total: Double, productoId: String) throws -> Venta {
-
+    func createVenta(idVenta: String, fechaVenta: Date, clienteId: String, productosSeleccionados: [(productoId: String, cantidad: Int64)]) throws -> Venta {
         guard !idVenta.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw ValidationError.emptyField("idVenta") }
-        guard cantidad > 0 else { throw ValidationError.invalidQuantity }
+        guard !productosSeleccionados.isEmpty else { throw ValidationError.emptyField("Carrito vacío") }
 
-        let fetchRequest: NSFetchRequest<Producto> = Producto.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "idProducto == %@", productoId)
-
-        guard let producto = try context.fetch(fetchRequest).first else {
-            throw ValidationError.productNotFound
+        let fetchCliente: NSFetchRequest<Cliente> = Cliente.fetchRequest()
+        fetchCliente.predicate = NSPredicate(format: "idCliente == %@", clienteId)
+        guard let cliente = try context.fetch(fetchCliente).first else {
+            throw ValidationError.customerNotFound
         }
-
-        guard producto.stock >= cantidad else {
-            throw ValidationError.insufficientStock(currentStock: producto.stock, requested: cantidad)
-        }
-
-        producto.stock -= cantidad
 
         let venta = Venta(context: context)
         venta.idVenta = idVenta
         venta.fechaVenta = fechaVenta
-        venta.cantidad = cantidad
-        venta.precio = precio
-        venta.subtotal = subtotal
-        venta.igv = igv
-        venta.total = total
+        venta.cliente = cliente
+
+        var totalSubtotal: Double = 0.0
+        var totalCantidad: Int64 = 0
+
+        for seleccion in productosSeleccionados {
+            let fetchProducto: NSFetchRequest<Producto> = Producto.fetchRequest()
+            fetchProducto.predicate = NSPredicate(format: "idProducto == %@", seleccion.productoId)
+            
+            guard let producto = try context.fetch(fetchProducto).first else {
+                throw ValidationError.productNotFound
+            }
+            
+            guard seleccion.cantidad > 0 else {
+                throw ValidationError.invalidQuantity
+            }
+            
+            guard producto.stock >= seleccion.cantidad else {
+                throw ValidationError.insufficientStock(currentStock: producto.stock, requested: seleccion.cantidad)
+            }
+            
+            // Disminuir stock
+            producto.stock -= seleccion.cantidad
+            
+            // Crear DetalleVenta
+            let detalle = DetalleVenta(context: context)
+            detalle.idDetalle = UUID().uuidString
+            detalle.cantidad = seleccion.cantidad
+            detalle.precioUnitario = producto.precio
+            detalle.producto = producto
+            detalle.venta = venta
+            
+            totalSubtotal += producto.precio * Double(seleccion.cantidad)
+            totalCantidad += seleccion.cantidad
+        }
+
+        venta.cantidad = totalCantidad
+        venta.precio = 0.0 // no longer used as single product price, defaults to 0
+        venta.subtotal = totalSubtotal
+        venta.igv = totalSubtotal * 0.18
+        venta.total = totalSubtotal + (totalSubtotal * 0.18)
 
         try saveContext()
         return venta
